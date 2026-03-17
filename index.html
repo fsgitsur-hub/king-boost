@@ -5,35 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KING AMIR SYSTEM</title>
     <style>
-        body { background: #000; color: #fbff00; text-align: center; font-family: sans-serif; padding: 20px; }
-        .card { border: 2px solid #fbff00; padding: 25px; border-radius: 20px; box-shadow: 0 0 15px #fbff00; max-width: 450px; margin: auto; background: #111; }
-        input { width: 90%; padding: 12px; margin: 15px 0; border-radius: 8px; border: 1px solid #fbff00; background: #000; color: white; text-align: center; }
-        button { background: #fbff00; color: #000; border: none; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; margin: 5px 0; font-size: 16px; transition: 0.3s; }
-        button:hover { background: white; transform: scale(1.03); }
+        body { background: #000; color: #fff; font-family: Arial; text-align: center; padding: 20px; }
+        .card { border: 2px solid #fb1; padding: 20px; border-radius: 15px; margin: 10px; }
+        input { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        button { background: #fb1; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; width: 100%; margin: 5px 0; border-radius: 5px; }
     </style>
 </head>
 <body>
+    <h1>👑 KING AMIR SYSTEM 👑</h1>
     <div class="card">
-        <h1>👑 KING AMIR SYSTEM 👑</h1>
-        <p>نظام الرشق العالمي - متصل ببوت تاكو</p>
-        <input type="text" id="target" placeholder="ضع رابط الفيديو أو الحساب هنا...">
-        <button onclick="order('متابعين 👥')">إرسال متابعين</button>
-        <button onclick="order('لايكات ❤️')">إرسال لايكات</button>
-        <button onclick="order('مشاهدات 👁️')">إرسال مشاهدات</button>
+        <input type="text" id="link" placeholder="ضع رابط الحساب أو المنشور هنا">
+        <button onclick="sendOrder('إرسال متابعين 👥')">إرسال متابعين 👥</button>
+        <button onclick="sendOrder('إرسال لايكات ❤️')">إرسال لايكات ❤️</button>
+        <button onclick="sendOrder('إرسال مشاهدات 👁️')">إرسال مشاهدات 👁️</button>
     </div>
 
     <script>
-    async function order(service) {
-        const link = document.getElementById('target').value;
-        if(!link) { alert("يا ملك، حط الرابط أولاً!"); return; }
-        const token = "8599220758:AAF3wJ2cD4-7y6pQOro8O8su_b__9J7hOaQ"; 
-        const chat_id = "5556212165"; 
-        const text = `🚀 طلب رشق جديد!\n👑 الملك: أمير\n🛠 الخدمة: ${service}\n🔗 الرابط: ${link}`;
-        try {
-            await fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(text)}`);
-            alert("✅ تم إرسال طلب " + service + " بنجاح!");
-        } catch(e) { alert("❌ فشل في الاتصال بالبوت."); }
-    }
+        // بياناتك الخاصة اللي أرسلتها لي
+        const token = "8599220758:AAF3wJ2cD4-7y6pQOro8O8su_b__9J7hOaQ";
+        const chat_id = "5556212165";
+
+        function sendOrder(service) {
+            const link = document.getElementById('link').value;
+            if(!link) { alert('الرجاء وضع الرابط أولاً!'); return; }
+            
+            const message = `🚀 طلب رشق جديد من موقعك:\n\n🔗 الرابط: ${link}\n🛠 الخدمة: ${service}`;
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
+
+            fetch(url).then(res => {
+                if(res.ok) { alert('تم إرسال طلبك للبوت بنجاح! ✅'); }
+                else { alert('فشل في الإرسال، تأكد من تشغيل البوت.'); }
+            });
+        }
     </script>
 </body>
 </html>
