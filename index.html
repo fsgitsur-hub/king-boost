@@ -3,37 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KING AMIR | إشعار تلجرام</title>
+    <title>نظام الملك أمير</title>
     <style>
-        body { background: #0b0b0b; color: #fb1; font-family: Arial; text-align: center; padding: 50px 20px; }
-        .card { border: 2px solid #fb1; padding: 30px; border-radius: 20px; box-shadow: 0 0 20px #fb1; background: #1a1a1a; }
-        input { width: 90%; padding: 15px; margin: 10px 0; border-radius: 10px; border: none; font-size: 16px; }
-        button { background: #fb1; color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; width: 100%; border-radius: 10px; font-size: 18px; margin-top: 10px; }
+        body { background: #000; color: #fb1; text-align: center; font-family: sans-serif; padding-top: 50px; }
+        .card { border: 2px solid #fb1; padding: 25px; border-radius: 15px; display: inline-block; width: 85%; max-width: 400px; background: #111; box-shadow: 0 0 20px #fb1; }
+        input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #fb1; background: #000; color: #fff; font-size: 16px; }
+        button { background: #fb1; color: #000; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 18px; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>👑 نظام التنبيهات 👑</h1>
-        <input type="text" id="user_link" placeholder="رابط الحساب المطلوب">
-        <input type="number" id="user_qty" placeholder="الكمية المطلوبة">
-        <button onclick="notifyMe()">إرسال التنبيه للملك ⚡</button>
+        <h1>👑 نظام الملك 👑</h1>
+        <p>اطلب خدمتك وستصلني فوراً</p>
+        <input type="text" id="link" placeholder="🔗 ضع الرابط هنا">
+        <input type="number" id="qty" placeholder="🔢 اكتب الكمية">
+        <button onclick="send()">إرسال الطلب للملك ⚡</button>
     </div>
 
     <script>
-        function notifyMe() {
+        function send() {
             const token = "8599220758:AAF3wJ2cD4-7y6pQOro8O8su_b__9J7hOaQ";
             const chat_id = "5556212165";
-            const link = document.getElementById('user_link').value;
-            const qty = document.getElementById('user_qty').value;
+            const l = document.getElementById('link').value;
+            const q = document.getElementById('qty').value;
+            
+            if(!l || !q) { alert('أكمل البيانات يا ملك!'); return; }
 
-            if(!link || !qty) { alert('يا ملك، الخانات فارغة!'); return; }
-
-            // رسالة نصية بسيطة جداً لا تسبب أخطاء
-            const message = `🔔 إشعار جديد:\n👤 الرابط: ${link}\n💎 الكمية: ${qty}`;
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
-
-            fetch(url, { mode: 'no-cors' });
-            alert('وصل الإشعار لتلجرامك بنجاح! ✅');
+            // نرسل رسالة نصية عادية جداً لا تسبب خطأ في البوت
+            const msg = `👑 طلب جديد وصلك:\n\n🔗 الرابط: ${l}\n🔢 الكمية: ${q}`;
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}`;
+            
+            fetch(url, {mode: 'no-cors'});
+            alert('تم استلام طلبك! ✅ راقب التلجرام الآن.');
         }
     </script>
 </body>
