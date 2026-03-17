@@ -3,38 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KING AMIR SYSTEM</title>
+    <title>KING AMIR SYSTEM | نظام الملك</title>
     <style>
-        body { background: #000; color: #fff; font-family: Arial; text-align: center; padding: 20px; }
-        .card { border: 2px solid #fb1; padding: 20px; border-radius: 15px; margin: 10px; }
-        input { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; }
-        button { background: #fb1; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; width: 100%; margin: 5px 0; border-radius: 5px; }
+        body { background: #000; color: #fff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 20px; }
+        .container { border: 2px solid #fb1; padding: 30px; border-radius: 20px; box-shadow: 0 0 20px #fb1; max-width: 400px; margin: auto; }
+        h1 { color: #fb1; text-shadow: 2px 2px 5px #555; }
+        input { width: 90%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #fb1; background: #222; color: #fff; font-size: 16px; }
+        .btn { background: #fb1; color: #000; border: none; padding: 15px; font-weight: bold; cursor: pointer; width: 100%; margin: 10px 0; border-radius: 8px; transition: 0.3s; font-size: 18px; }
+        .btn:hover { background: #fff; box-shadow: 0 0 15px #fff; }
     </style>
 </head>
 <body>
-    <h1>👑 KING AMIR SYSTEM 👑</h1>
-    <div class="card">
-        <input type="text" id="link" placeholder="ضع رابط الحساب أو المنشور هنا">
-        <button onclick="sendOrder('إرسال متابعين 👥')">إرسال متابعين 👥</button>
-        <button onclick="sendOrder('إرسال لايكات ❤️')">إرسال لايكات ❤️</button>
-        <button onclick="sendOrder('إرسال مشاهدات 👁️')">إرسال مشاهدات 👁️</button>
+    <div class="container">
+        <h1>👑 نظام الملك أمير 👑</h1>
+        <p>نظام رشق خدمات السوشيال ميديا 💥</p>
+        
+        <input type="text" id="link" placeholder="🔗 ضع الرابط هنا (حساب/فيديو)">
+        <input type="number" id="quantity" placeholder="🔢 اكتب الكمية (غير محدود 💥)">
+        
+        <button class="btn" onclick="sendOrder('متابعين 👥')">إرسال متابعين 👥</button>
+        <button class="btn" onclick="sendOrder('لايكات ❤️')">إرسال لايكات ❤️</button>
+        <button class="btn" onclick="sendOrder('مشاهدات 👁️')">إرسال مشاهدات 👁️</button>
     </div>
 
     <script>
-        // بياناتك الخاصة اللي أرسلتها لي
+        // بياناتك الرسمية والمحفوظة
         const token = "8599220758:AAF3wJ2cD4-7y6pQOro8O8su_b__9J7hOaQ";
         const chat_id = "5556212165";
 
         function sendOrder(service) {
             const link = document.getElementById('link').value;
-            if(!link) { alert('الرجاء وضع الرابط أولاً!'); return; }
+            const qty = document.getElementById('quantity').value;
             
-            const message = `🚀 طلب رشق جديد من موقعك:\n\n🔗 الرابط: ${link}\n🛠 الخدمة: ${service}`;
+            if(!link || !qty) { 
+                alert('يا ملك، يرجى وضع الرابط والكمية أولاً! ⚠️'); 
+                return; 
+            }
+            
+            const message = `👑 طلب رشق جديد من موقعك:\n\n🔗 الرابط: ${link}\n🔢 الكمية: ${qty}\n🛠 الخدمة: ${service}`;
             const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(message)}`;
 
             fetch(url).then(res => {
-                if(res.ok) { alert('تم إرسال طلبك للبوت بنجاح! ✅'); }
-                else { alert('فشل في الإرسال، تأكد من تشغيل البوت.'); }
+                if(res.ok) { 
+                    alert('تم إرسال طلبك بنجاح! سيتم التنفيذ فوراً 🚀'); 
+                } else { 
+                    alert('هناك مشكلة في الاتصال بالبوت! ❌'); 
+                }
             });
         }
     </script>
